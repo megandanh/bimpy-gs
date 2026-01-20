@@ -37,7 +37,7 @@ const StarBackground: React.FC<StarBackgroundProps> = ({
         const rect = document.body.getBoundingClientRect();
         const canvasWidth = Math.floor(rect.width);
         const canvasHeight = Math.floor(rect.height);
-        
+
         canvas.width = canvasWidth;
         canvas.height = canvasHeight;
 
@@ -53,7 +53,6 @@ const StarBackground: React.FC<StarBackgroundProps> = ({
 
         const stars: Star[] = [];
 
-        // Generate stars STOPPED HERE
         for (let i = 0; i < starCount; i++) {
         const r = (Math.random() * 1.6 + 0.4) * starSize;
         stars.push({
@@ -63,7 +62,6 @@ const StarBackground: React.FC<StarBackgroundProps> = ({
             baseAlpha: 0.3 + Math.random() * 0.7,
             twinklePhase: Math.random() * Math.PI * 2,
             twinkleSpeed: 0.01 + Math.random() * 0.02,
-            // some stars move faster for depth
             speed: (0.15 + Math.random() * 0.85) * starSpeed,
         });
         }
@@ -81,8 +79,8 @@ const StarBackground: React.FC<StarBackgroundProps> = ({
                         Math.max(0, s.baseAlpha + 0.25 * Math.sin(s.twinklePhase))
                     )
                     : s.baseAlpha;
-
-                // Glow
+                
+                // star glow
                 const glow = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 3);
                 glow.addColorStop(0, `rgba(255,255,255,${alpha})`);
                 glow.addColorStop(1, `rgba(255,255,255,0)`);
@@ -92,7 +90,7 @@ const StarBackground: React.FC<StarBackgroundProps> = ({
                 ctx.arc(s.x, s.y, s.r * 3, 0, Math.PI * 2);
                 ctx.fill();
 
-                // Core
+                // star core
                 ctx.fillStyle = `rgba(255,255,255,${Math.min(1, alpha + 0.15)})`;
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
