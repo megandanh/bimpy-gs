@@ -1,0 +1,21 @@
+.console {
+  min-height: 100vh;
+  width: 100%;
+  background: #1a1a1a;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr; /* tweak */
+  box-sizing: border-box;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0; 
+}
+
+
+.col-left .panel { flex: 1; } */
+.col-mid .panel { flex: 1; }
+.col-right .panel { flex: 1; }
