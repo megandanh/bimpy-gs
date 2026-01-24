@@ -6,6 +6,7 @@
   display: grid;
   grid-template-columns: 1fr 1.4fr 1fr; /* tweak */
   box-sizing: border-box;
+  gap:16px;
 }
 
 .col {
