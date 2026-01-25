@@ -76,8 +76,9 @@ html, body, #root {
 .panel {
   background: #575656;
   border-radius: 20px;
-  padding: 20px;
+  padding: 15px;
   color: white;
+  margin-bottom: 6px;
 
   display: flex;
   flex-direction: column;
@@ -85,8 +86,7 @@ html, body, #root {
 }
 
 .panel-title {
-  margin: 0;
-  font-size: 2.5em;
+  font-size: 2em;
   letter-spacing: 0.2px;
   font-family: "Lalezar", sans-serif;
   color: #FEF8F8;

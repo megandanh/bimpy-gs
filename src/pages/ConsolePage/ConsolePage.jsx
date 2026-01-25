@@ -1,4 +1,5 @@
 import "./console.css";
+import "../../App.css";
 import { useEffect, useState } from "react";
 import FlightConfirmModal from "../../components/modals/FlightConfirmModal";
 import BimpyLogo from "../../assets/BimpyLogo.png";
@@ -7,6 +8,7 @@ import MapPanel from "../../components/panels/MapPanel";
 import LogPanel from "../../components/panels/LogPanel";
 import LaunchSitePanel from "../../components/panels/LaunchSitePanel";
 import CurrentStatusPanel from "../../components/panels/CurrentStatusPanel";
+import RemotePanel from "../../components/panels/RemotePanel";
 
 export default function ConsolePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,12 +20,16 @@ export default function ConsolePage() {
 
     const [launchSiteInfo, setLaunchSiteInfo] = useState(null);
     const [currentStatus, setCurrentStatus] = useState(null);
+    const [flightStartTime, setFlightStartTime] = useState(null);
     
     const onClickStartFlight = () => {
         setIsModalOpen(true);
     };
 
     const onConfirmStartFlight = () => {
+        const start = Date.now();
+        setFlightStartTime(start);
+
         setIsModalOpen(false);
         setIsFlightRunning(true);
 
@@ -107,7 +113,7 @@ export default function ConsolePage() {
     return (
         <div className="console-page">
             <div className="console-header">
-                <img src= {BimpyLogo} alt="Bimpy Logo" id="bimpyLogoConsole"/>
+                <h2 className="console-logo">BIMPY</h2>
                 <div className="console-buttons">
                     <button id="startFlightBtn" onClick={onClickStartFlight}>START FLIGHT</button>
                     <button id="flightAnalysisBtn">ANALYZE</button>
@@ -134,7 +140,8 @@ export default function ConsolePage() {
                 
                 <div className="col col-right">
                     <LaunchSitePanel launchSiteInfo={ launchSiteInfo } />
-                    <CurrentStatusPanel currentStatus={ currentStatus } logRows={ logRows } />
+                    <CurrentStatusPanel currentStatus={ currentStatus } logRows={ logRows } flightStartTime={flightStartTime} />
+                    <RemotePanel />
                 </div>
             </div>
         </div>

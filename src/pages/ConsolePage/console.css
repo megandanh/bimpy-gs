@@ -14,10 +14,11 @@
     padding: 12px 24px;
 }
 
-#bimpyLogoConsole {
-    width: 15vw;       
-    max-width: 600px;   
-    height: auto;
+.console-logo {
+    font-family: "Krona";
+    color: #efeeee;
+    font-size: 3em;
+    margin: 10px;
 }
 
 #startFlightBtn, #flightAnalysisBtn {
@@ -87,5 +88,5 @@
 }
 
 .col-right > :nth-child(1) { flex: 1; min-height: 0; }
-.col-right > :nth-child(2) { flex: 2; min-height: 0; }
+.col-right > :nth-child(2) { flex: 2.2; min-height: 0; }
 .col-right > :nth-child(3) { flex: 1; min-height: 0; }

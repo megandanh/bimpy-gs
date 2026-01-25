@@ -1,0 +1,55 @@
+.remote-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#ELRS-img {
+    width: 5.5em;
+    height: auto;
+    margin-left: 50px;
+}
+
+.dpad {
+    display: grid;
+    grid-template-columns: 34px 34px 34px;
+    grid-template-rows: 34px 34px 34px;
+    gap:4px;
+    margin-right: 40px;
+}
+
+.dpad-btn.up    { grid-column: 2; grid-row: 1; }
+.dpad-btn.left  { grid-column: 1; grid-row: 2; }
+.dpad-btn.right { grid-column: 3; grid-row: 2; }
+.dpad-btn.down  { grid-column: 2; grid-row: 3; }
+
+.dpad-btn {
+    width: 20px;
+    height: 24px;
+    border-radius: 30px;
+    border: 5px solid #252323;
+
+    background: #B3B3B3;
+    color: #252323;
+
+    font-size: 20px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: transform 0.1s ease, filter 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.dpad-btn.active {
+    background: #535050;
+    border-color: #252323;
+
+    box-shadow:
+        0 0 10px rgba(246, 244, 244, 0.55),
+        0 0 22px rgba(60, 60, 60, 0.35);
+
+    filter: brightness(1.05);
+}
+
+

@@ -6,13 +6,13 @@
 } */
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+    height: 6em;
+    padding: 1.5em;
+    will-change: filter;
+    transition: filter 300ms;
 }
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+    filter: drop-shadow(0 0 2em #646cffaa);
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
@@ -28,6 +28,13 @@
 @font-face {
   font-family: "Shanti";
   src: url("../../assets/fonts/Shanti/Shanti-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Krona";
+  src: url("./assets/fonts/Krona/KronaOne-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }

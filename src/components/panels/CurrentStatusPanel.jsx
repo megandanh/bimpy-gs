@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 function StatusRow ({ label, value }) {
     return (
         <div className="launch-display">
@@ -7,6 +9,19 @@ function StatusRow ({ label, value }) {
             </div>
         </div>
     );
+}
+
+function formatStopwatch(ms) {
+  const totalSeconds = Math.floor(ms / 1000);
+  const hrs = Math.floor(totalSeconds / 3600);
+  const mins = Math.floor((totalSeconds % 3600) / 60);
+  const secs = totalSeconds % 60;
+
+  return (
+    String(hrs).padStart(2, "0") + ":" +
+    String(mins).padStart(2, "0") + ":" +
+    String(secs).padStart(2, "0")
+  );
 }
 
 const R = 6371000; 
@@ -29,9 +44,26 @@ function haversineDistance(lat1, lon1, lat2, lon2) {
     return R * c; 
 }
 
-export default function CurrentStatusPanel ({ currentStatus, logRows }) {
-   let displacement = "";
-   let distanceTraveled = "";
+export default function CurrentStatusPanel ({ currentStatus, logRows, flightStartTime }) {
+    let displacement = "";
+    let distanceTraveled = "";
+
+    const [elapsedMs, setElapsedMs] = useState(0);
+
+    useEffect(() => {
+        if (!flightStartTime) {
+            setElapsedMs(0);
+            return;
+        }
+
+        setElapsedMs(Date.now() - flightStartTime);
+
+        const id = setInterval(() => {
+            setElapsedMs(Date.now() - flightStartTime);
+        }, 250);
+
+        return () => clearInterval(id);
+    }, [flightStartTime]);
 
     // displacement
     const canCompute =
@@ -73,7 +105,7 @@ export default function CurrentStatusPanel ({ currentStatus, logRows }) {
 
     return (
         <div className="panel">
-        <h2 className="panel-title">Status</h2>
+        <h2 className="panel-title">STATUS</h2>
 
         {!currentStatus ? (
             <div style={{ marginTop: 12, opacity: 0.8 }}>
@@ -81,7 +113,9 @@ export default function CurrentStatusPanel ({ currentStatus, logRows }) {
             </div>
         ) : (
             <div style={{ marginTop: 12 }}>
-                <StatusRow label="Launch Time:" value={currentStatus.timestamp}/>
+                {flightStartTime && (
+                    <StatusRow label="Flight Time:" value={formatStopwatch(elapsedMs)} />
+                )}                
                 <StatusRow label="Latitude:" value={currentStatus.latitude}/>
                 <StatusRow label="Longitude:" value={currentStatus.longitude}/>
                 <StatusRow label="Altitude:" value={currentStatus.altitude}/>
