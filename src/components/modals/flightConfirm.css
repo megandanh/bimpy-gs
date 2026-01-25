@@ -1,0 +1,124 @@
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal {
+    width: min(400px, 25vw);
+    background: #575656;
+    border-radius: 20px;
+    padding: 22px;
+    color: #fef8f8;
+    border-style: solid;
+    border-width: 4px;
+    border-color: #A9A5A5;
+}
+
+.modal-title {
+    margin: 0 0 18px 0;
+    font-family: "Lalezar", sans-serif;
+    font-size: 1.8em;
+}
+
+.record-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0,0,0,0.25);
+    border-radius: 14px;
+    padding: 14px 16px;
+}
+
+.record-labels {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.record-label {
+    font-family: "Lalezar", sans-serif;
+    font-size: 1.2em;
+}
+
+.record-status {
+    opacity: 0.9;
+    font-size: 1.2em;
+    font-family: "Lalezar", sans-serif;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 54px;
+    height: 30px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.25);
+    border-radius: 999px;
+    transition: 0.15s ease;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    top: 4px;
+    background: white;
+    border-radius: 50%;
+    transition: 0.15s ease;
+}
+
+.switch input:checked + .slider {
+    background: #047204;
+}
+
+.switch input:checked + .slider:before {
+    transform: translateX(24px);
+}
+
+.modal-actions {
+    margin-top: 18px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.btn-primary,
+.btn-secondary {
+    border: solid;
+    border-radius: 12px;
+    border-style: solid;
+    border-width: 3px;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-family: "Lalezar", sans-serif;
+    font-size: 1.1em;
+}
+
+.btn-primary {
+    background: #047204;
+    border-color: #032f0e;
+    color: white;
+}
+
+.btn-secondary {
+    background: rgb(146, 7, 7);
+    border-color: rgb(69, 3, 3);
+    color: #fef8f8;
+}

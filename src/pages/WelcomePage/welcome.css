@@ -69,7 +69,8 @@
 #startButton:hover{
     background-color: #454545;
     border-color: #6f6e6e;
-    color: #b8b6b6
+    color: #b8b6b6;
+    cursor: pointer;
 }
 
 @keyframes blimpFloat {
