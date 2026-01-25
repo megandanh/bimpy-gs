@@ -42,49 +42,50 @@
     cursor: pointer;
 }
 
-
-
 .console-body {
-  flex: 1;
-  min-height: 0;     /* critical */
-  overflow: hidden;
+    flex: 1;
+    min-height: 0;    
+    overflow: hidden;
 
-  padding: 16px;
-  display: grid;
-  grid-template-columns: 1fr 1.6fr 1fr;
-  gap: 16px;
-  box-sizing: border-box;
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1.6fr 0.8fr;
+    gap: 16px;
+    box-sizing: border-box;
 }
 
 .col {
-  height: 100%;
-  min-height: 0;
+    height: 100%;
+    min-height: 0;
 
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
-
 
 .col-left .panel { flex: 1; } 
 .col-mid .panel { flex: 1; }
 .col-right .panel { flex: 1; }
 
 .col-mid {
-  min-height: 0;
+    min-height: 0;
 }
 
 .col-mid > :first-child {
-  flex: 1;          /* 50% */
-  min-height: 0;
+    flex: 1;          
+    min-height: 0;
 }
 
 .col-mid > :nth-child(2) {
-  flex: 1;          /* 50% */
-  min-height: 0;
+    flex: 1;         
+    min-height: 0;
 }
 
 .col-left > .panel {
-  flex: 1;
-  min-height: 0;
+    flex: 1;
+    min-height: 0;
 }
+
+.col-right > :nth-child(1) { flex: 1; min-height: 0; }
+.col-right > :nth-child(2) { flex: 2; min-height: 0; }
+.col-right > :nth-child(3) { flex: 1; min-height: 0; }

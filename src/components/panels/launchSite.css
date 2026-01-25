@@ -1,0 +1,22 @@
+.launch-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.launch-labels {
+    font-family: "Shanti";
+    font-size: 1.2em;
+}
+
+.launch-vals {
+    font-family: "Shanti";
+    font-size: 1.2em;
+    background: #3C3A3A;
+    border-style: none;
+    border-radius: 20px;
+    width: 8em;
+    text-align: right;
+    padding-right: 10px;
+}

@@ -5,7 +5,7 @@ import BimpyLogo from "../../assets/BimpyLogo.png";
 import FlightMessages from "../../components/panels/FlightMessagesPanel";
 import MapPanel from "../../components/panels/MapPanel";
 import LogPanel from "../../components/panels/LogPanel";
-
+import LaunchSitePanel from "../../components/panels/LaunchSitePanel";
 
 export default function ConsolePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,6 +14,8 @@ export default function ConsolePage() {
 
     const [logRows, setLogRows] = useState([]);
     const [flightId, setFlightId] = useState(null);
+
+    const [launchSiteInfo, setLaunchSiteInfo] = useState([]);
     
     const onClickStartFlight = () => {
         setIsModalOpen(true);
@@ -24,6 +26,7 @@ export default function ConsolePage() {
         setIsFlightRunning(true);
 
         setLogRows([]);
+        setLaunchSiteInfo(null);
 
         if (isRecordingOn) {
             setFlightId(Date.now());
@@ -67,6 +70,14 @@ export default function ConsolePage() {
             flightId: isRecordingOn ? flightId : null,
             };
 
+            setLaunchSiteInfo((prev) => {
+                if (prev) return prev; 
+                return {
+                    timestamp: row.timestamp,
+                    latitude: row.latitude,
+                    longitude: row.longitude,
+                };
+            })
             setLogRows((prev) => [...prev.slice(-300), row]); 
         }, 500); 
 
@@ -101,7 +112,9 @@ export default function ConsolePage() {
                     <LogPanel rows={logRows}/>
                 </div>
                 
-                <div className="col col-right">{/* later */}</div>
+                <div className="col col-right">
+                    <LaunchSitePanel launchSiteInfo={ launchSiteInfo } />
+                </div>
             </div>
         </div>
   );
