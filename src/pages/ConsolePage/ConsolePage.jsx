@@ -6,6 +6,7 @@ import FlightMessages from "../../components/panels/FlightMessagesPanel";
 import MapPanel from "../../components/panels/MapPanel";
 import LogPanel from "../../components/panels/LogPanel";
 import LaunchSitePanel from "../../components/panels/LaunchSitePanel";
+import CurrentStatusPanel from "../../components/panels/CurrentStatusPanel";
 
 export default function ConsolePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -15,7 +16,8 @@ export default function ConsolePage() {
     const [logRows, setLogRows] = useState([]);
     const [flightId, setFlightId] = useState(null);
 
-    const [launchSiteInfo, setLaunchSiteInfo] = useState([]);
+    const [launchSiteInfo, setLaunchSiteInfo] = useState(null);
+    const [currentStatus, setCurrentStatus] = useState(null);
     
     const onClickStartFlight = () => {
         setIsModalOpen(true);
@@ -27,6 +29,7 @@ export default function ConsolePage() {
 
         setLogRows([]);
         setLaunchSiteInfo(null);
+        setCurrentStatus(null);
 
         if (isRecordingOn) {
             setFlightId(Date.now());
@@ -78,6 +81,23 @@ export default function ConsolePage() {
                     longitude: row.longitude,
                 };
             })
+
+            setCurrentStatus((prev) => {
+                const launchLat = prev?.launchLat ?? row.latitude;
+                const launchLong = prev?.launchLong ?? row.longitude;
+                
+                return {
+                    launchLat,
+                    launchLong,
+                    timestamp: row.timestamp,
+                    latitude: row.latitude,
+                    longitude: row.longitude,
+                    altitude: row.altitude,
+                    speed: row.speed,
+                    pressure: row.pressure,
+                };
+            })
+
             setLogRows((prev) => [...prev.slice(-300), row]); 
         }, 500); 
 
@@ -114,6 +134,7 @@ export default function ConsolePage() {
                 
                 <div className="col col-right">
                     <LaunchSitePanel launchSiteInfo={ launchSiteInfo } />
+                    <CurrentStatusPanel currentStatus={ currentStatus } logRows={ logRows } />
                 </div>
             </div>
         </div>
