@@ -1,6 +1,13 @@
 @font-face {
   font-family: "Lalezar";
-  src: url("../../assets/fonts/Lalezar-Regular.ttf") format("truetype");
+  src: url("../../assets/fonts/Lalezar/Lalezar-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Shanti";
+  src: url("../../assets/fonts/Shanti/Shanti-Regular.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
 }

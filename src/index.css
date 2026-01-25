@@ -25,7 +25,6 @@ a:hover {
 body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
   display: block;        
   background: #1a1a1a;
 }
@@ -70,5 +69,25 @@ button:focus-visible {
 html, body, #root {
   height: 100%;
   margin: 0;
+  overflow: hidden;
   background-color: #1a1a1a;
+}
+
+.panel {
+  background: #575656;
+  border-radius: 20px;
+  padding: 20px;
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.panel-title {
+  margin: 0;
+  font-size: 2.5em;
+  letter-spacing: 0.2px;
+  font-family: "Lalezar", sans-serif;
+  color: #FEF8F8;
 }

@@ -3,7 +3,7 @@ import "./flightConfirm.css";
 export default function StartFlightModal({
   isOpen,
   recordOn,
-  setRecordEnabled,
+  setRecordingOn,
   onConfirm,
   onCancel,
 }) {
@@ -24,7 +24,7 @@ export default function StartFlightModal({
             <input
               type="checkbox"
               checked={recordOn}
-              onChange={(e) => setRecordEnabled(e.target.checked)}
+              onChange={(e) => setRecordingOn(e.target.checked)}
             />
             <span className="slider" />
           </label>
