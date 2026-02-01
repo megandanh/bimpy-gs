@@ -21,10 +21,10 @@
     margin: 10px;
 }
 
-#startFlightBtn, #flightAnalysisBtn {
+#startFlightBtn, #flightAnalysisBtn, #stopFlightBtn {
     width: fit-content; 
     padding: 0.3em 1.1em; 
-    height: 2.5;
+    height: 2.5em;
     background-color: #575656;
     border-radius: 30px;
     border-color: #A9A5A5;
@@ -36,7 +36,7 @@
     margin-left: 20px;
 }
 
-#startFlightBtn:hover, #flightAnalysisBtn:hover{
+#startFlightBtn:hover, #flightAnalysisBtn:hover, #stopFlightBtn:hover {
     background-color: #454545;
     border-color: #6f6e6e;
     color: #b8b6b6;

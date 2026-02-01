@@ -1,0 +1,45 @@
+.analysis-page {
+    display: flex;
+    align-items: left;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.analysis-header {
+    padding: 12px 24px;
+}
+
+.analysis-logo {
+    font-family: "Krona";
+    color: #efeeee;
+    font-size: 3.5em;
+    margin: 15px;
+    padding-top: 10px;
+}
+
+.analysis-body {
+    flex: 1;
+    min-height: 0;    
+    overflow: hidden;
+
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1.6fr 0.8fr;
+    gap: 16px;
+    box-sizing: border-box;
+}
+
+.col {
+    height: 100%;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+/* .panel {
+    margin-top: 30px;
+    margin-left: 30px;
+} */

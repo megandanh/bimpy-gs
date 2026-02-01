@@ -1,0 +1,151 @@
+.analysis-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.analysis-modal {
+    width: min(780px, 92vw);
+    background: #2b2b2b;
+    border: 2px solid #a9a5a5;
+    border-radius: 18px;
+    padding: 16px;
+    color: #fef8f8;
+}
+
+.analysis-modal-title {
+    font-family: "Krona";
+}
+
+.analysis-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.analysis-x {
+    background: transparent;
+    color: #fef8f8;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.analysis-controls {
+    margin-top: 12px;
+}
+
+.analysis-search {
+    width: 95%;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 2px solid #a9a5a5;
+    background: #1f1f1f;
+    color: #fef8f8;
+    outline: none;
+    align-items: center;
+}
+
+.analysis-body {
+    margin-top: 12px;
+    min-height: 320px;
+}
+
+.analysis-empty {
+    opacity: 0.8;
+    padding: 12px;
+}
+
+.analysis-results {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.analysis-row {
+    text-align: left;
+    border-radius: 14px;
+    border: 2px solid #575656;
+    background: #1f1f1f;
+    color: #fef8f8;
+    padding: 12px;
+    cursor: pointer;
+}
+
+.analysis-row.selected {
+    border-color: #fef8f8;
+}
+
+.analysis-row-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+}
+
+.analysis-id {
+    font-weight: 700;
+}
+
+.analysis-samples {
+    opacity: 0.85;
+}
+
+.analysis-row-bottom {
+    display: grid;
+    gap: 4px;
+    opacity: 0.9;
+    font-size: 0.95em;
+}
+
+.analysis-footer {
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+}
+
+.analysis-pagination {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.analysis-pagebtn {
+    padding: 8px 12px;
+    border-radius: 12px;
+    border: 2px solid #a9a5a5;
+    background: #575656;
+    color: #fef8f8;
+    cursor: pointer;
+}
+
+.analysis-pagebtn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.analysis-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.analysis-cancel,
+.analysis-next {
+    padding: 8px 14px;
+    border-radius: 12px;
+    border: 2px solid #a9a5a5;
+    background: #575656;
+    color: #fef8f8;
+    cursor: pointer;
+}
+
+.analysis-next:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}

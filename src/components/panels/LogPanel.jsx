@@ -15,6 +15,7 @@ export default function LogPanel({ rows }) {
                     <th>Longitude</th>
                     <th>Speed</th>
                     <th>Pressure</th>
+                    <th>Battery</th>
                     </tr>
                 </thead>
 
@@ -27,6 +28,7 @@ export default function LogPanel({ rows }) {
                         <td>{r.longitude}</td>
                         <td>{r.speed}</td>
                         <td>{r.pressure}</td>
+                        <td>{r.battery}</td>
                     </tr>
                     ))}
                 </tbody>
