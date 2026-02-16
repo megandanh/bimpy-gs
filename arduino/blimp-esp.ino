@@ -1,4 +1,4 @@
-// LEFT ESP32 IS BLIMP (RECEIVES ELRS COMMANDS AND SENDS TEL)
+// RIGHT ESP32 IS BLIMP (RECEIVES ELRS COMMANDS AND SENDS TEL)
 
 #include <RadioLib.h>
 
@@ -84,5 +84,6 @@ void loop() {
     Serial.print("\nLEFT TX CMD seq="); Serial.print(cmd2.seq);
     Serial.print(" tx="); Serial.println(tx);
   }
-
 }
+
+
