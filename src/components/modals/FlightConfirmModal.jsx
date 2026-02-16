@@ -31,8 +31,8 @@ export default function StartFlightModal({
         </div>
 
         <div className="modal-actions">
-          <button className="btn-secondary" onClick={onCancel}> Cancel</button>
-          <button className="btn-primary" onClick={onConfirm}>Start Flight</button>
+            <button className="btn-secondary" onClick={onCancel}> Cancel</button>
+            <button className="btn-primary" onClick={onConfirm}>Start Flight</button>
         </div>
       </div>
     </div>

@@ -20,7 +20,6 @@ function formatTime(ms) {
 export default function GraphPanel({ logs = [] }) {
     const [metric, setMetric] = useState("altitude"); // altitude | pressure | speed | distance
 
-    // Ensure chronological order for plotting
     const data = useMemo(() => {
         const ordered = [...logs].sort((a, b) => a.t_ms - b.t_ms);
         return ordered.map((l) => ({
@@ -29,7 +28,6 @@ export default function GraphPanel({ logs = [] }) {
         altitude: l.altitude,
         pressure: l.pressure,
         speed: l.speed,
-        // distance later
     }));
   }, [logs]);
 

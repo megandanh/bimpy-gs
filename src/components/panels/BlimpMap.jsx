@@ -9,12 +9,15 @@ export default function BlimpMap({ blimpPos, trail, launchSite, zoom = 16.5 }) {
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   });
 
+  // Shall change later hehehe
   const demoLaunch = { lat: 28.60805, lng: -81.19267 };
   const [demoPos, setDemoPos] = useState(demoLaunch);
   const [demoTrail, setDemoTrail] = useState([demoLaunch]);
 
   useEffect(() => {
     if (blimpPos) return; 
+
+    // TESTING PURPOSES, REPLACE W GPS LOGIC LATER (Up right slope)
     const id = setInterval(() => {
       setDemoPos((prev) => {
         const next = { lat: prev.lat + 0.00003, lng: prev.lng + 0.00002 };

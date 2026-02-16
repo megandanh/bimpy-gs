@@ -4,7 +4,7 @@ import R2D2_ELRS from "../../assets/R2D2_ELRS.png";
 
 export default function RemotePanel({ launchSiteInfo }) {
   
-    const [direction, setDirection] = useState(null); // "up" | "down" | "left" | "right" | null
+    const [direction, setDirection] = useState(null); 
 
     // LOOP FOR TESTING PURPOSES DONT FORGET TO CHANGE
     useEffect(() => {
