@@ -47,10 +47,10 @@ void setup() {
   radio.setSpreadingFactor(9);   
   radio.setBandwidth(125.0);    
   radio.setCodingRate(7);     
-  Serial.print("LEFT begin: "); Serial.println(st);
+  Serial.print("RIGHT begin: "); Serial.println(st);
   if (st != RADIOLIB_ERR_NONE) while (true) delay(1000);
 
-  Serial.println("LEFT ready: TX CMD(12ch), RX TEL");
+  Serial.println("RIGHT ready: TX CMD(12ch), RX TEL");
 }
 
 void loop() {
@@ -69,7 +69,7 @@ void loop() {
     bool arm  = (cmd1.flags & (1 << 0));
     bool kill = (cmd1.flags & (1 << 1));
 
-    Serial.print("LEFT RX CMD seq="); 
+    Serial.print("RIGHT RX CMD seq="); 
     Serial.print(cmd1.seq);
     
     CmdPacket12 cmd2{};
@@ -81,7 +81,7 @@ void loop() {
     delayMicroseconds(50); 
 
     int tx = radio.transmit((uint8_t*)&cmd2, sizeof(cmd2));
-    Serial.print("\nLEFT TX CMD seq="); Serial.print(cmd2.seq);
+    Serial.print("\nRIGHT TX CMD seq="); Serial.print(cmd2.seq);
     Serial.print(" tx="); Serial.println(tx);
   }
 }
