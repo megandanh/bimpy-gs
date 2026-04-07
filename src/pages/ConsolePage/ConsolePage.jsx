@@ -29,6 +29,11 @@ export default function ConsolePage() {
 
     const [elapsedMs, setElapsedMs] = useState(0);
 
+    const [remote, setRemote] = useState({
+        ch: Array(12).fill(1500),
+        arm: 0,
+        kill: 0,
+    });
     const navigate = useNavigate();
         
     const API = "http://localhost:5176";
@@ -38,6 +43,8 @@ export default function ConsolePage() {
     const lastPosRef = useRef(null);        
     const launchPosRef = useRef(null);      
     const totalDistanceRef = useRef(0);    
+
+    
 
     function haversineMeters(a, b) {
         if (!a || !b) return 0;
@@ -144,6 +151,33 @@ export default function ConsolePage() {
 
         return () => clearInterval(id);
     }, [flightStartTime]);
+
+    
+
+  useEffect(() => {
+        const ws = new WebSocket("ws://localhost:5177");
+
+        ws.onopen = () => console.log("[WS] open");
+        ws.onerror = (e) => console.log("[WS] error", e);
+
+        ws.onmessage = (evt) => {
+            try {
+                const msg = JSON.parse(evt.data);
+                if (msg.type === "ch" && Array.isArray(msg.ch)) {
+                    setRemote({
+                        ch: msg.ch,
+                        arm: msg.arm ? 1 : 0,
+                        kill: msg.kill ? 1 : 0,
+                        connection: true,          // ← add this
+                    });
+                }
+            } catch (err) {
+                console.log("[WS] bad message", evt.data);
+            }
+        }
+   
+        return () => ws.close();
+     }, []);
 
     useEffect(() => {  
         if (!isFlightRunning) return;
@@ -307,6 +341,7 @@ export default function ConsolePage() {
             <div className="console-body">
                 <div className="col col-left">
                     <FlightMessages />
+                    <RemotePanel remote={remote}/>
                 </div>
 
                 <div className="col col-mid">
@@ -317,7 +352,7 @@ export default function ConsolePage() {
                 <div className="col col-right">
                     <LaunchSitePanel launchSiteInfo={ launchSiteInfo } />
                     <CurrentStatusPanel currentStatus={ currentStatus } />
-                    <RemotePanel />
+                    
                 </div>
             </div>
         </div>
