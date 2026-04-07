@@ -56,11 +56,11 @@ export default function RemotePanel({
     return (
       <div className="panel">
         <h2 className="panel-title">REMOTE</h2>
-        <div className="connection-verification">
+        {/* <div className="connection-verification">
           Connection: {remote.connection ? "ON" : "OFF"}
-        </div>
+        </div> */}
         <div style={{ marginBottom: 12 }}>
-          Arm: {remote.arm ? "ON" : "OFF"} | Kill: {remote.kill ? "ON" : "OFF"}
+          Connection: {remote.connection ? "ON" : "OFF"} | Arm: {remote.arm ? "ON" : "OFF"} | Kill: {remote.kill ? "ON" : "OFF"}
         </div>
 
         <ChannelBar label="Throttle" value={throttle} />

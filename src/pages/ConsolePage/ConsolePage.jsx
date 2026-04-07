@@ -7,9 +7,11 @@ import AnalysisModal from "../../components/modals/AnalysisModal";
 import FlightMessages from "../../components/panels/FlightMessagesPanel";
 import MapPanel from "../../components/panels/MapPanel";
 import LogPanel from "../../components/panels/LogPanel";
+import VideoFeed from "../../components/panels/VideoFeed";
 import LaunchSitePanel from "../../components/panels/LaunchSitePanel";
 import CurrentStatusPanel from "../../components/panels/CurrentStatusPanel";
 import RemotePanel from "../../components/panels/RemotePanel";
+
 
 export default function ConsolePage() {
 
@@ -168,7 +170,7 @@ export default function ConsolePage() {
                         ch: msg.ch,
                         arm: msg.arm ? 1 : 0,
                         kill: msg.kill ? 1 : 0,
-                        connection: true,          // ← add this
+                        connection: true,          
                     });
                 }
             } catch (err) {
@@ -340,19 +342,20 @@ export default function ConsolePage() {
 
             <div className="console-body">
                 <div className="col col-left">
-                    <FlightMessages />
+                    {/* <FlightMessages /> */}
+                    <VideoFeed />
                     <RemotePanel remote={remote}/>
                 </div>
 
                 <div className="col col-mid">
                     <MapPanel />
+                    
                     <LogPanel rows={logRows}/>
                 </div>
                 
                 <div className="col col-right">
                     <LaunchSitePanel launchSiteInfo={ launchSiteInfo } />
                     <CurrentStatusPanel currentStatus={ currentStatus } />
-                    
                 </div>
             </div>
         </div>
