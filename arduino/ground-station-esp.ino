@@ -90,7 +90,7 @@ void loop() {
 }
 
 """
-// ELRS CRSF Connection Test for ONLY ELRS to GCS ESP32
+// ELRS CRSF Connection Test
 // Verifies ESP32 can receive CRSF channel data from HappyModel EP2
 //
 // Wiring:
@@ -116,6 +116,16 @@ static uint32_t frameCount = 0;
 static uint32_t errorCount = 0;
 static uint32_t lastFrameMs = 0;
 static uint32_t lastPrintMs = 0;
+
+// ── Arm / Kill channel mapping ──
+// Adjust these to match your TX12 switch assignments
+#define ARM_CHANNEL  4   // CH5 (0-indexed) — arm switch
+#define KILL_CHANNEL 5   // CH6 (0-indexed) — kill switch
+#define ARM_THRESHOLD  1500
+#define KILL_THRESHOLD 1500
+
+// How many channels to send to the GUI
+#define NUM_CH_TO_SEND 12
 
 // CRC8 DVB-S2 (poly 0xD5)
 static uint8_t crc8_dvb_s2(const uint8_t* data, int len) {
@@ -160,21 +170,6 @@ static int need = 0;
 void setup() {
   Serial.begin(115200);
   delay(500);
-
-  Serial.println();
-  Serial.println("==========================================");
-  Serial.println("  ELRS CRSF Connection Test");
-  Serial.println("  HappyModel EP2 → ESP32");
-  Serial.println("==========================================");
-  Serial.println();
-  Serial.println("Wiring check:");
-  Serial.println("  EP2 TX  → GPIO 16 (RX2)");
-  Serial.println("  EP2 RX  → GPIO 17 (TX2)");
-  Serial.println("  EP2 VCC → 5V");
-  Serial.println("  EP2 GND → GND");
-  Serial.println();
-  Serial.println("Waiting for CRSF frames...");
-  Serial.println();
 
   Serial2.begin(CRSF_BAUD, SERIAL_8N1, RX2_PIN, TX2_PIN);
 
@@ -222,10 +217,6 @@ void loop() {
         if (type == CRSF_TYPE_CHAN) {
           decodeChannels(&frame[3]);
         }
-
-        if (type == CRSF_TYPE_LINK) {
-          // Link stats frame received — connection confirmed
-        }
       } else {
         errorCount++;
       }
@@ -235,60 +226,30 @@ void loop() {
     }
   }
 
-  // Print status every 500ms
-  if (millis() - lastPrintMs >= 500) {
+  // Send JSON every 50ms (~20 Hz) for responsive GUI
+  if (millis() - lastPrintMs >= 50) {
     lastPrintMs = millis();
 
-    Serial.println("------------------------------------------");
+    // Only send when we have received at least one valid frame
+    if (frameCount == 0) return;
 
-    if (frameCount == 0) {
-      Serial.println("STATUS: NO FRAMES RECEIVED");
-      Serial.println("  - Check wiring (EP2 TX → GPIO 16)");
-      Serial.println("  - Is EP2 powered?");
-      Serial.println("  - Is your TX (radio) on and bound?");
+    bool connected = (millis() - lastFrameMs) < 500;
+    bool arm  = channels[ARM_CHANNEL]  > ARM_THRESHOLD;
+    bool kill = channels[KILL_CHANNEL] > KILL_THRESHOLD;
 
-      // Show if we're getting any raw bytes at all
-      Serial.print("  - Raw bytes on Serial2: ");
-      Serial.println(Serial2.available() > 0 ? "YES (data present but no valid frames)" : "NONE");
-
-    } else {
-      uint32_t age = millis() - lastFrameMs;
-
-      Serial.print("STATUS: CONNECTED | Frames: ");
-      Serial.print(frameCount);
-      Serial.print(" | Errors: ");
-      Serial.print(errorCount);
-      Serial.print(" | Last frame: ");
-      Serial.print(age);
-      Serial.println("ms ago");
-
-      if (age > 500) {
-        Serial.println("  WARNING: Stale data — TX may be off or out of range");
-      }
-
-      // Print first 8 channels
-      Serial.print("  CH1-4:  ");
-      for (int i = 0; i < 4; i++) {
-        Serial.print(channels[i]);
-        Serial.print(i < 3 ? "  " : "\n");
-      }
-      Serial.print("  CH5-8:  ");
-      for (int i = 4; i < 8; i++) {
-        Serial.print(channels[i]);
-        Serial.print(i < 7 ? "  " : "\n");
-      }
-
-      // Stick movement check
-      bool sticksMoved = false;
-      for (int i = 0; i < 4; i++) {
-        if (channels[i] < 1400 || channels[i] > 1600) {
-          sticksMoved = true;
-          break;
-        }
-      }
-      Serial.print("  Sticks: ");
-      Serial.println(sticksMoved ? "MOVING (input detected)" : "CENTERED");
+    // Build JSON: {"type":"ch","ch":[1500,1500,...],"arm":0,"kill":0,"connection":true}
+    Serial.print("{\"type\":\"ch\",\"ch\":[");
+    for (int i = 0; i < NUM_CH_TO_SEND; i++) {
+      Serial.print(channels[i]);
+      if (i < NUM_CH_TO_SEND - 1) Serial.print(",");
     }
+    Serial.print("],\"arm\":");
+    Serial.print(arm ? 1 : 0);
+    Serial.print(",\"kill\":");
+    Serial.print(kill ? 1 : 0);
+    Serial.print(",\"connection\":");
+    Serial.print(connected ? "true" : "false");
+    Serial.println("}");
   }
 }
 
