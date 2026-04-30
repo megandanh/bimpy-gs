@@ -41,10 +41,13 @@ export default function CurrentStatusPanel ({ currentStatus }) {
                 <StatusRow label="Altitude:" value={currentStatus.altitude}/>
                 <StatusRow label="Speed:" value={currentStatus.speed}/>
                 <StatusRow label="Pressure:" value={currentStatus.pressure}/>
-                <StatusRow label="Battery:" value={currentStatus.battery}/>
+                <StatusRow label="RSSI:" value={currentStatus.rssi}/>
+                <StatusRow label="SNR:" value={currentStatus.snr}/>
+                <StatusRow label="Temperature:" value={currentStatus.temperature}/>
                 <StatusRow label="Distance:" value={currentStatus.distance}/>
                 <StatusRow label="Displacement:" value={currentStatus.displacement}/>
-                          
+                <StatusRow label="Codes:" value={currentStatus.codes}/>
+         
             </div>
         )}
         </div>

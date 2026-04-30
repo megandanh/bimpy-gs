@@ -9,7 +9,6 @@ export default function BlimpMap({ blimpPos, trail, launchSite, zoom = 16.5 }) {
     googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   });
 
-  // Shall change later hehehe
   const demoLaunch = { lat: 28.60805, lng: -81.19267 };
   const [demoPos, setDemoPos] = useState(demoLaunch);
   const [demoTrail, setDemoTrail] = useState([demoLaunch]);
@@ -17,7 +16,6 @@ export default function BlimpMap({ blimpPos, trail, launchSite, zoom = 16.5 }) {
   useEffect(() => {
     if (blimpPos) return; 
 
-    // TESTING PURPOSES, REPLACE W GPS LOGIC LATER (Up right slope)
     const id = setInterval(() => {
       setDemoPos((prev) => {
         const next = { lat: prev.lat + 0.00003, lng: prev.lng + 0.00002 };
@@ -65,34 +63,56 @@ export default function BlimpMap({ blimpPos, trail, launchSite, zoom = 16.5 }) {
   if (!isLoaded) return <div style={{ width: "100%", height: "100%" }} />;
 
   return (
-    <GoogleMap
-      mapContainerStyle={containerStyle}
-      center={pos}
-      zoom={zoom}
-      options={options}
-      onLoad={(map) => (mapRef.current = map)}
-    >
-      {/* launch site */}
-      <Circle
-        center={site}
-        radius={6}
-        options={{ fillOpacity: 1, strokeOpacity: 0, fillColor: "#000000", zIndex: 2 }}
-      />
-
-      {/* path/trail */}
-      {path?.length > 1 && <Polyline path={path} options={dashedLineOptions} />}
-
-      {/* current location*/}
-      <Circle
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      {!blimpPos && (
+          <div style={{
+              position: "absolute",
+              top: "10px",
+              left: "50%",
+              transform: "translateX(-50%)",
+              background: "rgba(0,0,0,0.7)",
+              color: "#f14242",
+              padding: "4px 12px",
+              borderRadius: "4px",
+              fontSize: "12px",
+              fontWeight: "bold",
+              zIndex: 10,
+              pointerEvents: "none",
+              whiteSpace: "nowrap",
+          }}>
+              NO GPS SIGNAL — DEMO MODE
+          </div>
+      )}
+      <GoogleMap
+        mapContainerStyle={containerStyle}
         center={pos}
-        radius={6}
-        options={{ fillOpacity: 1, strokeOpacity: 0, fillColor: "#f14242", zIndex: 4 }}
-      />
-      <Circle
-        center={pos}
-        radius={18}
-        options={{ fillOpacity: 0.5, strokeOpacity: 0, fillColor: "#f19999ff", zIndex: 3 }}
-      />
-    </GoogleMap>
+        zoom={zoom}
+        options={options}
+        onLoad={(map) => (mapRef.current = map)}
+      >
+        
+        {/* launch site */}
+        <Circle
+          center={site}
+          radius={6}
+          options={{ fillOpacity: 1, strokeOpacity: 0, fillColor: "#000000", zIndex: 2 }}
+        />
+
+        {/* path/trail */}
+        {path?.length > 1 && <Polyline path={path} options={dashedLineOptions} />}
+
+        {/* current location*/}
+        <Circle
+          center={pos}
+          radius={6}
+          options={{ fillOpacity: 1, strokeOpacity: 0, fillColor: "#f14242", zIndex: 4 }}
+        />
+        <Circle
+          center={pos}
+          radius={18}
+          options={{ fillOpacity: 0.5, strokeOpacity: 0, fillColor: "#f19999ff", zIndex: 3 }}
+        />
+      </GoogleMap>
+    </div>
   );
 }

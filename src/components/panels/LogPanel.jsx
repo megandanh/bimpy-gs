@@ -9,13 +9,18 @@ export default function LogPanel({ rows }) {
                 <table className="log-table">
                 <thead>
                     <tr>
-                    <th>Local Time</th>
-                    <th>Altitude</th>
-                    <th>Latitude</th>
-                    <th>Longitude</th>
-                    <th>Speed</th>
-                    <th>Pressure</th>
-                    <th>Battery</th>
+                        <th>Local Time</th>
+                        <th>Altitude</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Speed</th>
+                        <th>Pressure</th>
+                        <th>Battery</th>
+                        <th>RSSI</th>
+                        <th>SNR</th>
+                        <th>Temperature</th>
+                        <th>Distance</th>
+                        <th>Codes</th>
                     </tr>
                 </thead>
 
@@ -29,6 +34,11 @@ export default function LogPanel({ rows }) {
                         <td>{r.speed}</td>
                         <td>{r.pressure}</td>
                         <td>{r.battery}</td>
+                        <td>{r.rssi}</td>
+                        <td>{r.snr}</td>
+                        <td>{r.temperature}</td>
+                        <td>{r.distance}</td>
+                        <td>{r.codes}</td>
                     </tr>
                     ))}
                 </tbody>

@@ -60,7 +60,7 @@ export default function RemotePanel({
           Connection: {remote.connection ? "ON" : "OFF"}
         </div> */}
         <div style={{ marginBottom: 12 }}>
-          Connection: {remote.connection ? "ON" : "OFF"} | Arm: {remote.arm ? "ON" : "OFF"} | Kill: {remote.kill ? "ON" : "OFF"}
+          Connection: {remote.connection ? "ON" : "OFF"} | Arm: {remote.arm ? "ON" : "OFF"} 
         </div>
 
         <ChannelBar label="Throttle" value={throttle} />

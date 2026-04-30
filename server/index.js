@@ -31,12 +31,31 @@ db.exec(`
         battery REAL,
         distance REAL,
         displacement REAL,
+        rssi REAL,
+        snr REAL,
+        temperature REAL,
+        codes TEXT,
         FOREIGN KEY (flight_id) REFERENCES flights(id)
     );
 
     CREATE INDEX IF NOT EXISTS idx_logs_flight_time
     ON telemetry_logs (flight_id, t_ms);
 `);
+
+// Migrate existing DB: add new columns if they don't exist yet
+const existingCols = db.pragma("table_info(telemetry_logs)").map(c => c.name);
+const newCols = [
+    { name: "rssi",        type: "REAL" },
+    { name: "snr",         type: "REAL" },
+    { name: "temperature", type: "REAL" },
+    { name: "codes",       type: "TEXT" },
+];
+for (const col of newCols) {
+    if (!existingCols.includes(col.name)) {
+        db.exec(`ALTER TABLE telemetry_logs ADD COLUMN ${col.name} ${col.type}`);
+        console.log(`[DB] Added column: ${col.name}`);
+    }
+}
 
 // flight start
 app.post("/api/flights/start", (req, res) => {
@@ -58,8 +77,9 @@ const insertLog = db.prepare(`
     INSERT INTO telemetry_logs (
         flight_id, t_ms,
         altitude, latitude, longitude, speed, pressure,
-        elapsed_ms, battery, distance, displacement
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        battery, distance, displacement,
+        rssi, snr, temperature, codes
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 `);
 
 const insertBatch = db.transaction((rows) => {
@@ -67,15 +87,18 @@ const insertBatch = db.transaction((rows) => {
         insertLog.run(
             String(r.flight_id),
             r.t_ms,
-            r.altitude ?? null,
-            r.latitude ?? null,
-            r.longitude ?? null,
-            r.speed ?? null,
-            r.pressure ?? null,
-            r.elapsed_ms ?? null, 
-            r.battery ?? null,
-            r.distance ?? null,
-            r.displacement ?? null,
+            r.altitude      ?? null,
+            r.latitude      ?? null,
+            r.longitude     ?? null,
+            r.speed         ?? null,
+            r.pressure      ?? null,
+            r.battery       ?? null,
+            r.distance      ?? null,
+            r.displacement  ?? null,
+            r.rssi          ?? null,
+            r.snr           ?? null,
+            r.temperature   ?? null,
+            r.codes         ?? null,
         );
     }
 });

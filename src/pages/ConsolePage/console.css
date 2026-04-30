@@ -87,6 +87,9 @@
     min-height: 0;
 }
 
+.col-left > :nth-child(1) { flex: 1.1; min-height: 0; }
+.col-left > :nth-child(2) { flex: 0.9; min-height: 0; }
+.col-left > :nth-child(3) { flex: 0.9; min-height: 0; }
+
 .col-right > :nth-child(1) { flex: 1; min-height: 0; }
 .col-right > :nth-child(2) { flex: 2.2; min-height: 0; }
-.col-right > :nth-child(3) { flex: 1; min-height: 0; }
